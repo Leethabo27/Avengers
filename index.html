@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Original Avengers – Hero Cards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
+
+      :root {
+        --red: #e62429;
+        --dark: #0d0d0d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Bebas Neue", sans-serif;
+        background: url("background.png") center/cover no-repeat fixed,
+          var(--dark);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      /* Marvel logo */
+      .logo {
+        width: 160px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        margin: 0 0 20px;
+        text-align: center;
+        font-size: 2rem;
+        text-shadow: 0 0 8px #000;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 25px;
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      .card {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+      }
+
+      .card img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.9);
+        transition: filter 0.3s;
+      }
+
+      .card:hover img {
+        filter: brightness(1.05);
+      }
+
+      .card::after {
+        content: attr(data-name);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        text-align: center;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* Modal styles */
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: #111;
+        border-radius: 12px;
+        max-width: 600px;
+        width: 100%;
+        color: #eee;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+        animation: pop 0.4s ease;
+        position: relative;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .modal-header img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+
+      .modal-body {
+        padding: 20px 25px 30px;
+      }
+
+      .modal-body h2 {
+        margin: 0 0 10px;
+        color: var(--red);
+      }
+
+      .modal-body ul {
+        padding-left: 20px;
+        margin: 0;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: var(--red);
+        border: none;
+        color: #fff;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .special-captain {
+        margin-top: 60px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 800px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+
+      .special-captain img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .special-captain h2 {
+        color: #1da1f2;
+        margin-bottom: 10px;
+        font-size: 2rem;
+      }
+
+      .special-captain ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto;
+        padding-left: 20px;
+      }
+
+      footer {
+        margin-top: 50px;
+        font-size: 0.8rem;
+        text-align: center;
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="logo.png" alt="Marvel" class="logo" />
+    <h1>Original Avengers</h1>
+
+    <div class="card-grid">
+      <div class="card" data-name="Iron Man" onclick="openModal('ironman')">
+        <img src="iron man back.png" alt="Iron Man" />
+      </div>
+      <div class="card" data-name="Thor" onclick="openModal('thor')">
+        <img src="THOR 1.png" alt="Thor" />
+      </div>
+      <div class="card" data-name="Hulk" onclick="openModal('hulk')">
+        <img src="HULK1.png" alt="Hulk" />
+      </div>
+      <div class="card" data-name="Hawkeye" onclick="openModal('hawkeye')">
+        <img src="HEYE1.png" alt="Hawkeye" />
+      </div>
+      <div
+        class="card"
+        data-name="Black Widow"
+        onclick="openModal('blackwidow')"
+      >
+        <img src="blck wdw.png" alt="Black Widow" />
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+      <div
+        class="modal-content"
+        id="modal-content"
+        onclick="event.stopPropagation()"
+      >
+        <button class="close-btn" onclick="closeModal(event)">×</button>
+        <div class="modal-header">
+          <img src="" alt="Hero image" id="modal-img" />
+        </div>
+        <div class="modal-body">
+          <h2 id="modal-title"></h2>
+          <p id="modal-bio"></p>
+          <h3>Abilities</h3>
+          <ul id="modal-powers"></ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>UI concept by @lethabodesign — Avengers, Assemble!</footer>
+
+    <script>
+      const heroes = {
+        ironman: {
+          name: "Iron Man",
+          img: "iron m pop.png",
+          bio: "Genius billionaire Tony Stark dons an advanced suit of armor to defend the world.",
+          powers: [
+            "Powered armor suit",
+            "Flight & repulsor blasts",
+            "Genius-level intellect",
+          ],
+        },
+        thor: {
+          name: "Thor",
+          img: "THOR2.png",
+          bio: "Asgardian God of Thunder with the mighty hammer Mjölnir.",
+          powers: ["Godly strength", "Lightning control", "Flight via Mjölnir"],
+        },
+        hulk: {
+          name: "Hulk",
+          img: "HULK2.png",
+          bio: "Dr. Bruce Banner transforms into the Hulk, a green juggernaut of rage.",
+          powers: ["Superhuman strength", "Rapid regeneration", "Thunderclap"],
+        },
+        hawkeye: {
+          name: "Hawkeye",
+          img: "HEYE2.png",
+          bio: "Clint Barton, master archer with unparalleled accuracy.",
+          powers: ["Expert marksman", "Acrobatics", "Espionage"],
+        },
+        blackwidow: {
+          name: "Black Widow",
+          img: "bw standing.png",
+          bio: "Natasha Romanoff, elite spy and martial artist.",
+          powers: ["Master martial artist", "Espionage", "Expert tactician"],
+        },
+      };
+
+      function openModal(id) {
+        const hero = heroes[id];
+        document.getElementById("modal-img").src = hero.img;
+        document.getElementById("modal-title").textContent = hero.name;
+        document.getElementById("modal-bio").textContent = hero.bio;
+        const powerList = document.getElementById("modal-powers");
+        powerList.innerHTML = hero.powers.map((p) => `<li>${p}</li>`).join("");
+        document.getElementById("modal").classList.add("active");
+      }
+
+      function closeModal(e) {
+        e.stopPropagation();
+        document.getElementById("modal").classList.remove("active");
+      }
+    </script>
+  </body>
+</html>
